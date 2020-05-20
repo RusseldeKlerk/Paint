@@ -230,8 +230,6 @@ begin
       Pen.Mode := pmXOR;
       MoveTo(StartX, StartY);
       LineTo(EndX, EndY);
-      Pen.Mode := pmXOR;
-      MoveTo(StartX, StartY);
       LineTo(X, Y);
     end;
     EndX := X;
