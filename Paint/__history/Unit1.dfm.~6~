@@ -1,0 +1,130 @@
+object frmPaint: TfrmPaint
+  Left = 0
+  Top = 0
+  Caption = 'Russel Paint'
+  ClientHeight = 516
+  ClientWidth = 915
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Visible = True
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Image1: TImage
+    Left = 400
+    Top = 8
+    Width = 500
+    Height = 500
+    OnMouseDown = Image1MouseDown
+    OnMouseMove = Image1MouseMove
+    OnMouseUp = Image1MouseUp
+  end
+  object Label1: TLabel
+    Left = 24
+    Top = 45
+    Width = 38
+    Height = 16
+    Caption = 'Color:'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'System'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object pnlColor: TPanel
+    Left = 64
+    Top = 39
+    Width = 25
+    Height = 25
+    Color = clBlack
+    ParentBackground = False
+    TabOrder = 0
+    OnClick = pnlColorClick
+  end
+  object btnClear: TButton
+    Left = 264
+    Top = 472
+    Width = 100
+    Height = 30
+    Caption = 'Clear'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Tahoma'
+    Font.Style = [fsBold]
+    ParentFont = False
+    TabOrder = 1
+    OnClick = btnClearClick
+  end
+  object btnDrawS: TButton
+    Left = 203
+    Top = 40
+    Width = 75
+    Height = 25
+    Caption = 'Draw Square'
+    TabOrder = 2
+  end
+  object btnSave: TButton
+    Left = 264
+    Top = 432
+    Width = 75
+    Height = 25
+    Caption = 'Save'
+    TabOrder = 3
+  end
+  object Button4: TButton
+    Left = 110
+    Top = 40
+    Width = 75
+    Height = 25
+    Caption = 'Pen Width'
+    TabOrder = 4
+    OnClick = Button4Click
+  end
+  object ColorListBox1: TColorListBox
+    Left = 64
+    Top = 71
+    Width = 121
+    Height = 97
+    TabOrder = 5
+    Visible = False
+    OnClick = ColorListBox1Click
+  end
+  object cmbPenWidth: TComboBox
+    Left = 219
+    Top = 94
+    Width = 145
+    Height = 21
+    TabOrder = 6
+    Text = 'Pen Width'
+    Visible = False
+    OnChange = cmbPenWidthChange
+    Items.Strings = (
+      '1'
+      '2'
+      '3'
+      '4'
+      '5'
+      '6'
+      '7'
+      '8'
+      '9'
+      '10'
+      '11'
+      '12'
+      '13'
+      '14'
+      '15'
+      '16'
+      '17'
+      '18'
+      '19'
+      '20')
+  end
+end

@@ -1,0 +1,160 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.ActnMan,
+  Vcl.ActnColorMaps, Vcl.StdCtrls, Vcl.ColorGrd;
+
+type
+  TfrmPaint = class(TForm)
+    Image1: TImage;
+    pnlColor: TPanel;
+    btnClear: TButton;
+    btnDrawS: TButton;
+    btnSave: TButton;
+    Button4: TButton;
+    Label1: TLabel;
+    ColorListBox1: TColorListBox;
+    cmbPenWidth: TComboBox;
+    btnDrawE: TButton;
+    Button2: TButton;
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState;
+      X, Y: Integer);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure pnlColorClick(Sender: TObject);
+    procedure ColorListBox1Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure cmbPenWidthChange(Sender: TObject);
+    procedure btnClearClick(Sender: TObject);
+    procedure btnDrawEClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+  var
+    iX, iY: Integer;
+    bDraw, bEllipsis, bSquare, bNone: Boolean;
+    Color: TColor;
+    iPenWidth: Integer;
+  end;
+
+var
+  frmPaint: TfrmPaint;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmPaint.btnClearClick(Sender: TObject);
+begin
+  with Image1, canvas do
+  begin
+    pen.Color := clBlack;
+    pen.Width := 1;
+    brush.Color := clwhite;
+    canvas.rectangle(clientrect);
+  end;
+end;
+
+procedure TfrmPaint.btnDrawEClick(Sender: TObject);
+begin
+  bEllipsis := True;
+  bNone := False;
+  bSquare := False;
+end;
+
+procedure TfrmPaint.Button4Click(Sender: TObject);
+begin
+  cmbPenWidth.Visible := True;
+end;
+
+procedure TfrmPaint.cmbPenWidthChange(Sender: TObject);
+begin
+  iPenWidth := cmbPenWidth.ItemIndex + 3;
+  cmbPenWidth.Visible := False;
+end;
+
+procedure TfrmPaint.ColorListBox1Click(Sender: TObject);
+begin
+  Color := ColorListBox1.Selected;
+  pnlColor.Color := Color;
+  ColorListBox1.Visible := False;
+end;
+
+procedure TfrmPaint.FormCreate(Sender: TObject);
+begin
+  bNone := True;
+  bEllipsis := False;
+  bSquare := False;
+  iPenWidth := 3;
+  Color := clBlack;
+  with Image1, canvas do
+  begin
+    brush.Color := clwhite;
+    canvas.rectangle(clientrect);
+  end;
+end;
+
+procedure TfrmPaint.Image1MouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+  var
+  iHeight, iWidth : Integer;
+begin
+  Image1.canvas.pen.Color := Color;
+  Image1.canvas.pen.Width := iPenWidth;
+  if bEllipsis then
+  begin
+    iWidth := strtoint(Inputbox('Width','What do you want the width to be of your ellipse','0'));
+    iHeight := strtoint(Inputbox('Height','What do you want the height to be of your ellipse','0'));
+    Image1.Canvas.Ellipse();
+  end;
+  if bNone then
+  begin
+    bDraw := True;
+    Image1.canvas.MoveTo(X, Y);
+    Image1.canvas.LineTo(X, Y);
+  end;
+end;
+
+procedure TfrmPaint.Image1MouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
+begin
+  if bDraw then
+  begin
+    Image1.Cursor := crNone;
+    Image1.canvas.LineTo(X, Y);
+    Image1.Cursor := crDefault;
+  end;
+end;
+
+procedure TfrmPaint.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  bDraw := False;
+end;
+
+procedure TfrmPaint.pnlColorClick(Sender: TObject);
+begin
+  ColorListBox1.Visible := True;
+end;
+
+procedure TfrmPaint.Timer1Timer(Sender: TObject);
+var
+  Shape: TShape;
+begin
+  Shape := TShape.Create(frmPaint);
+  Shape.Parent := frmPaint;
+  Shape.Height := 5;
+  Shape.Width := 5;
+  Shape.Top := iY;
+  Shape.Left := iX;
+end;
+
+end.

@@ -1,0 +1,26 @@
+object frmPaint: TfrmPaint
+  Left = 0
+  Top = 0
+  Caption = 'Russel Paint'
+  ClientHeight = 646
+  ClientWidth = 1055
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Image1: TImage
+    Left = 352
+    Top = 88
+    Width = 489
+    Height = 465
+    OnMouseDown = Image1MouseDown
+    OnMouseMove = Image1MouseMove
+    OnMouseUp = Image1MouseUp
+  end
+end
